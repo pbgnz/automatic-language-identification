@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# corpora
+/corpora/*.txt
+!/corpora/first10TestSentences.txt
