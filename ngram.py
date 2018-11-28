@@ -83,8 +83,7 @@ class Bigram:
                 character_count[c] = letter_frequency + self.vocabulary * self.delta
             else:
                 character_count[c] = self.vocabulary
-        # TODO: Fix odd problem
-        pairs = [self.tokenized[i]+self.tokenized[i+1] for i in range(0,len(self.tokenized),2)]
+        pairs = [(a,b) for a in string.ascii_lowercase for b in string.ascii_lowercase]
         outfile = open("output/{}.txt".format(self.name), "w")
         for pair in pairs:
             pair_frequency = ngram.get(pair)
