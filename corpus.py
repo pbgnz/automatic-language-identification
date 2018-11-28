@@ -78,3 +78,6 @@ class Corpus:
 
     def clean_and_tokenize(self):
         return Corpus.tokenize(Corpus.clean(self.corpus))
+
+    def sanitize(self):
+        return Corpus.clean(self.corpus)

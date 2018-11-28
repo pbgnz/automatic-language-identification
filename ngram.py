@@ -28,7 +28,7 @@ class Unigram:
         self.corpus = [] # train corpus
         self.tokenized = [] # tokenized corpus
         self.count = [] # Counter
-        self.unigram = []
+        self.model = dict({el:0 for el in string.ascii_lowercase})
     
     def train(self, training_corpus):
         self.corpus = Corpus(training_corpus)
@@ -36,8 +36,25 @@ class Unigram:
         self.count = Counter([(self.tokenized[i]) for i in range(0,len(self.tokenized)-1)])
         self.print_model(self.count)
 
-    # def predict(self, test_corpus):
-    #     test = Corpus(test_corpus).cleans()
+    def predict(self, test_corpus):
+        test = Corpus(test_corpus).sanitize()
+        count = 1
+        for line in test:
+            print(line)
+            outfile = open("output/out{}.txt".format(count), "w+")
+            count += 1
+            tokens = []
+            french = 1
+            outfile.write(' '.join(line)+'\n\n')
+            outfile.write('UNIGRAM MODEL: {}\n\n'.format(self.corpus.name))
+            tokens.append(Corpus.tokenize(line))
+            for line in tokens:
+                for c in line:
+                    outfile.write('UNIGRAM: {}\n'.format(c))
+                    f = self.model[c]
+                    french += math.log10(f)
+                    outfile.write('MODEL PROBABILITY: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(c, f, french))
+            outfile.close()
 
 
     def print_model(self, ngram):
@@ -49,8 +66,12 @@ class Unigram:
             else:
                 letter_frequency = self.delta
             total_characters = len(self.tokenized) + self.delta * self.vocabulary
-            outfile.write("P({}) = {:.4e}\n".format(letter, Decimal(letter_frequency/total_characters)))
+            self.model[letter] = Decimal(letter_frequency/total_characters)
+            outfile.write("P({}) = {:.4e}\n".format(letter, self.model[letter]))
         outfile.close()
+
+    def get_model(self):
+        return self.model
 
 
 class Bigram:
@@ -95,8 +116,10 @@ class Bigram:
         outfile.close()
 
 
-bigram = NGram.create(degree=2,name="bigramEN", delta=0.5)
+
+bigram = NGram.create(degree=1,name="unigramEN", delta=0.5)
 bigram.train("corpora/fr-vingt-mille-lieues-sous-les-mers.txt")
+bigram.predict("corpora/first10TestSentences.txt")
 
 # test = Corpus('corpora/first10TestSentences.txt').cleans()
 # count = 1
