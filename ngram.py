@@ -111,7 +111,7 @@ class Bigram:
             pairs = [tmp[i]+tmp[i+1] for i in range(0,len(tmp),2)]
             for p in pairs:
                 outfile.write('BIGRAM: {}{}\n'.format(p[0],p[1]))
-                f = self.model[(p[0],p[1])]
+                f = self.model[(p[1],p[0])]
                 logTotal += math.log10(f)
                 outfile.write('MODEL PROBABILITY: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(p[1], p[0], f, logTotal))
             outfile.close()
