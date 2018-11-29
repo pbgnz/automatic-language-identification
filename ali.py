@@ -33,7 +33,7 @@ def demo(verbose, corpora, test):
     count = 1
     test = Corpus(test).sanitize()
     for line in test:
-        outfile = open("output/out{}.txt".format(count), "w+")
+        outfile = open("output/out{}.txt".format(count), "w+", encoding="utf8")
         count += 1
         tokens = []
         outfile.write(' '.join(line)+'\n\n')

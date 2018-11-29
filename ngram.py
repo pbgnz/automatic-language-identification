@@ -43,7 +43,7 @@ class Unigram:
         test = Corpus(test_corpus).sanitize()
         count = 1
         for line in test:
-            outfile = open("output/debug/{}-{}-{}.txt".format(count,self.name,self.corpus.name), "w+")
+            outfile = open("output/debug/{}-{}-{}.txt".format(count,self.name,self.corpus.name), "w+", encoding="utf8")
             count += 1
             tokens = []
             logTotal = 0
@@ -59,7 +59,7 @@ class Unigram:
             outfile.close()
 
     def print_model(self, ngram):
-        outfile = open("output/{}.txt".format(self.name), "w")
+        outfile = open("output/{}.txt".format(self.name), "w", encoding="utf8")
         for letter in string.ascii_lowercase:
             letter_frequency = ngram.get(letter)
             if letter_frequency is not None:
@@ -98,7 +98,7 @@ class Bigram:
         test = Corpus(test_corpus).sanitize()
         count = 1
         for line in test:
-            outfile = open("output/debug/{}-{}-{}.txt".format(count,self.name,self.corpus.name), "w+")
+            outfile = open("output/debug/{}-{}-{}.txt".format(count,self.name,self.corpus.name), "w+", encoding="utf8")
             tokens = []
             logTotal = 0
             outfile.write(' '.join(line)+'\n\n')
@@ -124,7 +124,7 @@ class Bigram:
                 character_count[c] = letter_frequency + self.vocabulary * self.delta
             else:
                 character_count[c] = self.vocabulary
-        outfile = open("output/{}.txt".format(self.name), "w")
+        outfile = open("output/{}.txt".format(self.name), "w", encoding="utf8")
         for pair in self.pairs:
             pair_frequency = ngram.get(pair)
             if pair_frequency is not None:

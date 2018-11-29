@@ -9,7 +9,7 @@ class Corpus:
     """
 
     def __init__(self, file_path):
-        file = open(file_path)
+        file = open(file_path, encoding="utf8")
         self.corpus = file.readlines()
         file.close()
         _, tail = os.path.split(file_path)
