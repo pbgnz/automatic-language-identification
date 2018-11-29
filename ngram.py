@@ -32,7 +32,6 @@ class Unigram:
         self.tokenized = [] # tokenized corpus
         self.count = [] # Counter
         self.model = dict({el:0 for el in string.ascii_lowercase})
-        self.test = [] # the results of the perdictions
     
     def train(self, training_corpus):
         self.corpus = Corpus(training_corpus)
@@ -51,15 +50,12 @@ class Unigram:
             outfile.write(' '.join(line)+'\n\n')
             outfile.write('UNIGRAM MODEL trained on: {}\n\n'.format(self.corpus.name))
             tokens.append(Corpus.tokenize(line))
-            line_result = []
             for line in tokens:
                 for c in line:
                     outfile.write('UNIGRAM: {}\n'.format(c))
                     f = self.model[c]
                     logTotal += math.log10(f)
-                    line_result.append((c, f,logTotal))
                     outfile.write('MODEL PROBABILITY: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(c, f, logTotal))
-            self.test.append(line_result)
             outfile.close()
 
     def print_model(self, ngram):
@@ -77,9 +73,6 @@ class Unigram:
 
     def get_model(self):
         return self.model
-
-    def get_predictions(self):
-        return self.test
 
 
 class Bigram:
