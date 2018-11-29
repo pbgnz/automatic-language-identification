@@ -65,9 +65,7 @@ def demo(verbose, corpora, test):
         logTotal["french"] = 0
         logTotal["spanish"] = 0
         tmp = tokens[0]
-        if len(tmp) % 2 != 0:
-            tmp = tmp[:-1]
-        pairs = [tmp[i]+tmp[i+1] for i in range(0,len(tmp),2)]
+        pairs = [a+b for a,b in zip(tmp,tmp[1:])]
         for p in pairs:
             outfile.write('\nBIGRAM: {}{}\n'.format(p[0],p[1]))
             for gram in ngrams:

@@ -106,9 +106,7 @@ class Bigram:
             tokens.append(Corpus.tokenize(line))
             tmp = tokens[0]
             count += 1
-            if len(tmp) % 2 != 0:
-                tmp = tmp[:-1]
-            pairs = [tmp[i]+tmp[i+1] for i in range(0,len(tmp),2)]
+            pairs = [a+b for a,b in zip(tmp,tmp[1:])]
             for p in pairs:
                 outfile.write('BIGRAM: {}{}\n'.format(p[0],p[1]))
                 f = self.model[(p[1],p[0])]
