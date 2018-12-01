@@ -37,6 +37,8 @@ def demo(verbose, corpora, test):
         count += 1
         tokens = []
         outfile.write(' '.join(line)+'\n\n')
+        if verbose:
+            print('\n' + ' '.join(line))
         outfile.write('UNIGRAM MODEL:\n')
         tokens.append(Corpus.tokenize(line))
         for line in tokens:
@@ -56,10 +58,16 @@ def demo(verbose, corpora, test):
                     outfile.write('{}: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(gram[0].name, c, f, logTotal[lang]))
             if (logTotal["french"] > logTotal["english"]) and (logTotal["french"] > logTotal["spanish"]):
                 outfile.write('\nAccording to the unigram model, the sentence is in French\n')
+                if verbose:
+                    print('\tAccording to the unigram model, the sentence is in French')
             elif (logTotal["english"] > logTotal["french"]) and (logTotal["english"] > logTotal["spanish"]):
                 outfile.write('\nAccording to the unigram model, the sentence is in English\n')
+                if verbose:
+                    print('\tAccording to the unigram model, the sentence is in English')
             else:
                 outfile.write('\nAccording to the unigram model, the sentence is in Spanish\n')
+                if verbose:
+                    print('\tAccording to the unigram model, the sentence is in Spanish')
         outfile.write('----------------\nBIGRAM MODEL:\n\n')
         logTotal["english"] = 0
         logTotal["french"] = 0
@@ -81,10 +89,16 @@ def demo(verbose, corpora, test):
                 outfile.write('{}: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(gram[1].name, p[1], p[0], f, logTotal[lang]))
         if (logTotal["french"] > logTotal["english"]) and (logTotal["french"] > logTotal["spanish"]):
             outfile.write('\nAccording to the bigram model, the sentence is in French\n')
+            if verbose:
+                print('\tAccording to the bigram model, the sentence is in French')
         elif (logTotal["english"] > logTotal["french"]) and (logTotal["english"] > logTotal["spanish"]):
             outfile.write('\nAccording to the bigram model, the sentence is in English\n')
+            if verbose:
+                print('\tAccording to the bigram model, the sentence is in English')
         else:
             outfile.write('\nAccording to the bigram model, the sentence is in Spanish\n')
+            if verbose:
+                print('\tAccording to the bigram model, the sentence is in Spanish')
     outfile.close()
 
 
