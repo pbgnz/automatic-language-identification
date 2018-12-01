@@ -1,7 +1,7 @@
 import os
 import re
 import string
-
+import unidecode
 
 class Corpus:
     """
@@ -33,7 +33,8 @@ class Corpus:
         # seperate the corpus by words
         words_split = []
         for line in corpus:
-            words_split.append(line.split())
+            unaccented = unidecode.unidecode(line)
+            words_split.append(unaccented.split())
 
         # Remove punctuation
         regex = re.compile('[%s]' % re.escape(string.punctuation))

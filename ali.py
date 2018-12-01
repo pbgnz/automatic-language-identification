@@ -80,11 +80,11 @@ def demo(verbose, corpora, test):
                 logTotal[lang] += math.log10(f)
                 outfile.write('{}: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(gram[1].name, p[1], p[0], f, logTotal[lang]))
         if (logTotal["french"] > logTotal["english"]) and (logTotal["french"] > logTotal["spanish"]):
-            outfile.write('\nAccording to the unigram model, the sentence is in French\n')
+            outfile.write('\nAccording to the bigram model, the sentence is in French\n')
         elif (logTotal["english"] > logTotal["french"]) and (logTotal["english"] > logTotal["spanish"]):
-            outfile.write('\nAccording to the unigram model, the sentence is in English\n')
+            outfile.write('\nAccording to the bigram model, the sentence is in English\n')
         else:
-            outfile.write('\nAccording to the unigram model, the sentence is in Spanish\n')
+            outfile.write('\nAccording to the bigram model, the sentence is in Spanish\n')
     outfile.close()
 
 
