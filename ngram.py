@@ -3,6 +3,7 @@
 import math
 import re
 import string
+import matplotlib.pyplot as plt
 from decimal import Decimal
 from corpus import Corpus
 from collections import Counter
@@ -70,9 +71,21 @@ class Unigram:
             self.model[letter] = Decimal(letter_frequency/total_characters)
             outfile.write("P({}) = {:.4e}\n".format(letter, self.model[letter]))
         outfile.close()
+        self.print_histogram()
 
+        
     def get_model(self):
         return self.model
+    
+    def print_histogram(self):
+        plt.bar(range(len(self.model)), self.model.values(), align='center')
+        plt.xticks(range(len(self.model)), self.model.keys())
+        plt.title("frequency distribution of "+self.name)
+        plt.xlabel("letters")
+        plt.ylabel("frequency")
+        #plt.show()
+        plt.savefig('output/'+self.name+'.png')
+        plt.close()
 
 
 class Bigram:
@@ -132,6 +145,20 @@ class Bigram:
             self.model[pair] = Decimal(pair_frequency/character_count[pair[0]])
             outfile.write("P({}|{}) = {:.4e}\n".format(pair[1], pair[0], self.model[pair]))
         outfile.close()
+        self.print_histogram()
 
     def get_model(self):
         return self.model
+    
+    def print_histogram(self):
+        most_common = {}
+        for letter, count in self.count.most_common(40):
+            most_common[letter[0]+letter[1]] = count
+        plt.bar(range(len(most_common)), most_common.values(), align='center')
+        plt.xticks(range(len(most_common)), most_common.keys(), rotation='vertical')
+        plt.title("Most common letter pairs in "+self.name)
+        plt.xlabel("letter pairs")
+        plt.ylabel("count")
+        #plt.show()
+        plt.savefig('output/'+self.name+'.png')
+        plt.close()

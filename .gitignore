@@ -112,3 +112,4 @@ venv.bak/
 
 # output
 /output/**/*.txt
+/output/**/*.png
