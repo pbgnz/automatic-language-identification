@@ -5,7 +5,7 @@ import re
 import string
 import matplotlib.pyplot as plt
 from decimal import Decimal
-from corpus import Corpus
+from corpus import Corpus, alphabet
 from collections import Counter
 from functools import reduce
 
@@ -28,11 +28,11 @@ class Unigram:
     def __init__(self, delta, name, vocabulary):
         self.delta = delta
         self.name = name
-        self.vocabulary = vocabulary
+        self.vocabulary = len(alphabet)
         self.corpus = [] # train corpus
         self.tokenized = [] # tokenized corpus
         self.count = [] # Counter
-        self.model = dict({el:0 for el in string.ascii_lowercase})
+        self.model = dict({el:0 for el in alphabet})
     
     def train(self, training_corpus):
         self.corpus = Corpus(training_corpus)
@@ -61,7 +61,7 @@ class Unigram:
 
     def print_model(self, ngram):
         outfile = open("output/{}.txt".format(self.name), "w", encoding="utf8")
-        for letter in string.ascii_lowercase:
+        for letter in alphabet:
             letter_frequency = ngram.get(letter)
             if letter_frequency is not None:
                 letter_frequency += letter_frequency + self.delta
@@ -93,11 +93,11 @@ class Bigram:
     def __init__(self, delta, name, vocabulary):
         self.delta = delta
         self.name = name
-        self.vocabulary = vocabulary
+        self.vocabulary = len(alphabet)
         self.corpus = [] # train corpus
         self.tokenized = [] # tokenized corpus
         self.count = [] # Counter
-        self.pairs = [(a,b) for a in string.ascii_lowercase for b in string.ascii_lowercase]
+        self.pairs = [(a,b) for a in alphabet for b in alphabet]
         self.model = dict({el:0 for el in self.pairs})
     
     def train(self, training_corpus):
@@ -128,7 +128,7 @@ class Bigram:
             outfile.close()
 
     def print_model(self, ngram):
-        character_count = dict({el:0 for el in string.ascii_lowercase})
+        character_count = dict({el:0 for el in alphabet})
         for c in character_count:
             letter_frequency = self.unigram.get(c)
             if letter_frequency is not None:
