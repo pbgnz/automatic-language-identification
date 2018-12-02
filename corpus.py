@@ -3,9 +3,6 @@ import re
 import string
 import unidecode
 
-alphabet = "abcdefghijklmnopqrstuvwxyzéó"
-alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZÉÓ"
-
 class Corpus:
     """
     Corpus is used for handling text files.
@@ -36,9 +33,8 @@ class Corpus:
         # seperate the corpus by words
         words_split = []
         for line in corpus:
-            # unaccented = unidecode.unidecode(line)
-            # words_split.append(unaccented.split())
-            words_split.append(line.split())
+            unaccented = unidecode.unidecode(line)
+            words_split.append(unaccented.split())
 
         # Remove punctuation
         regex = re.compile('[%s]' % re.escape(string.punctuation))
@@ -75,9 +71,9 @@ class Corpus:
             l = list(word)
             # only add ascii letters
             for c in l:
-                if c in alphabetUpper:
+                if c in string.ascii_uppercase:
                     tokens.extend(c.lower())
-                elif c in alphabet:
+                elif c in string.ascii_lowercase:
                     tokens.extend(c)
         return tokens
 

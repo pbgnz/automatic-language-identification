@@ -5,7 +5,7 @@ import re
 import string
 import matplotlib.pyplot as plt
 from decimal import Decimal
-from corpus import Corpus, alphabet
+from corpus import Corpus
 from collections import Counter
 from functools import reduce
 
@@ -28,11 +28,11 @@ class Unigram:
     def __init__(self, delta, name, vocabulary):
         self.delta = delta
         self.name = name
-        self.vocabulary = len(alphabet)
+        self.vocabulary = vocabulary
         self.corpus = [] # train corpus
         self.tokenized = [] # tokenized corpus
         self.count = [] # Counter
-        self.model = dict({el:0 for el in alphabet})
+        self.model = dict({el:0 for el in string.ascii_lowercase})
     
     def train(self, training_corpus):
         self.corpus = Corpus(training_corpus)
@@ -61,7 +61,7 @@ class Unigram:
 
     def print_model(self, ngram):
         outfile = open("output/{}.txt".format(self.name), "w", encoding="utf8")
-        for letter in alphabet:
+        for letter in string.ascii_lowercase:
             letter_frequency = ngram.get(letter)
             if letter_frequency is not None:
                 letter_frequency += letter_frequency + self.delta
@@ -71,7 +71,7 @@ class Unigram:
             self.model[letter] = Decimal(letter_frequency/total_characters)
             outfile.write("P({}) = {:.4e}\n".format(letter, self.model[letter]))
         outfile.close()
-        self.print_histogram()
+        # self.print_histogram()
 
         
     def get_model(self):
@@ -93,11 +93,11 @@ class Bigram:
     def __init__(self, delta, name, vocabulary):
         self.delta = delta
         self.name = name
-        self.vocabulary = len(alphabet)
+        self.vocabulary = vocabulary
         self.corpus = [] # train corpus
         self.tokenized = [] # tokenized corpus
         self.count = [] # Counter
-        self.pairs = [(a,b) for a in alphabet for b in alphabet]
+        self.pairs = [(a,b) for a in string.ascii_lowercase for b in string.ascii_lowercase]
         self.model = dict({el:0 for el in self.pairs})
     
     def train(self, training_corpus):
@@ -128,7 +128,7 @@ class Bigram:
             outfile.close()
 
     def print_model(self, ngram):
-        character_count = dict({el:0 for el in alphabet})
+        character_count = dict({el:0 for el in string.ascii_lowercase})
         for c in character_count:
             letter_frequency = self.unigram.get(c)
             if letter_frequency is not None:
@@ -145,7 +145,7 @@ class Bigram:
             self.model[pair] = Decimal(pair_frequency/character_count[pair[0]])
             outfile.write("P({}|{}) = {:.4e}\n".format(pair[1], pair[0], self.model[pair]))
         outfile.close()
-        self.print_histogram()
+        # self.print_histogram()
 
     def get_model(self):
         return self.model
