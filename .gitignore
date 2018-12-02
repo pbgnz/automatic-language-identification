@@ -106,10 +106,6 @@ venv.bak/
 # vscode
 .vscode
 
-# corpora
-/corpora/*.txt
-!/corpora/first10TestSentences.txt
-
 # output
 /output/**/*.txt
 /output/**/*.png
