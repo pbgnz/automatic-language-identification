@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+    <!-- Bootstrap 4 Beta -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <title>NGrams</title>
+</head>
+
+<body>
+        <div class="container">
+    <h2 class="text-center">Custom Unigram and Bigram models</h2>
+    <div class="text-center">
+        <a href="https://github.com/pbgnz/automatic-language-identification">
+            github.com/pbgnz/automatic-language-identification
+        </a>
+    </div>
+    <br/><br/>
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-7">
+                <input id="sentence" name="sentence" class="form-control" type="text"
+                placeholder="Write a sentence in English, Spanish, or French.">
+            </div>
+            <div class="col-3">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    <br/><br/>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sentence</th>
+                            <th scope="col">Unigram prediction</th>
+                            <th scope="col">Bigram prediction</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results"></tbody>
+                </table>
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
