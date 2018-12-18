@@ -8,6 +8,7 @@ from decimal import Decimal
 from corpus import Corpus
 from collections import Counter
 from functools import reduce
+from loguru import logger
 
 
 class NGram:
@@ -44,20 +45,18 @@ class Unigram:
         test = Corpus(test_corpus).sanitize()
         count = 1
         for line in test:
-            outfile = open("output/debug/{}-{}-{}.txt".format(count,self.name,self.corpus.name), "w+", encoding="utf8")
             count += 1
             tokens = []
             logTotal = 0
-            outfile.write(' '.join(line)+'\n\n')
-            outfile.write('UNIGRAM MODEL trained on: {}\n\n'.format(self.corpus.name))
+            logger.debug(' '.join(line)+'\n\n')
+            logger.debug('UNIGRAM MODEL trained on: {}\n\n'.format(self.corpus.name))
             tokens.append(Corpus.tokenize(line))
             for line in tokens:
                 for c in line:
-                    outfile.write('UNIGRAM: {}\n'.format(c))
+                    logger.debug('UNIGRAM: {}\n'.format(c))
                     f = self.model[c]
                     logTotal += math.log10(f)
-                    outfile.write('MODEL PROBABILITY: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(c, f, logTotal))
-            outfile.close()
+                    logger.debug('MODEL PROBABILITY: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(c, f, logTotal))
 
     def print_model(self, ngram):
         outfile = open("output/{}.txt".format(self.name), "w", encoding="utf8")
@@ -111,21 +110,19 @@ class Bigram:
         test = Corpus(test_corpus).sanitize()
         count = 1
         for line in test:
-            outfile = open("output/debug/{}-{}-{}.txt".format(count,self.name,self.corpus.name), "w+", encoding="utf8")
             tokens = []
             logTotal = 0
-            outfile.write(' '.join(line)+'\n\n')
-            outfile.write('BIGRAM MODEL:  trained on: {}\n\n'.format(self.corpus.name))
+            logger.debug(' '.join(line)+'\n\n')
+            logger.debug('BIGRAM MODEL:  trained on: {}\n\n'.format(self.corpus.name))
             tokens.append(Corpus.tokenize(line))
             tmp = tokens[0]
             count += 1
             pairs = [a+b for a,b in zip(tmp,tmp[1:])]
             for p in pairs:
-                outfile.write('BIGRAM: {}{}\n'.format(p[0],p[1]))
+                logger.debug('BIGRAM: {}{}\n'.format(p[0],p[1]))
                 f = self.model[(p[1],p[0])]
                 logTotal += math.log10(f)
-                outfile.write('MODEL PROBABILITY: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(p[1], p[0], f, logTotal))
-            outfile.close()
+                logger.debug('MODEL PROBABILITY: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(p[1], p[0], f, logTotal))
 
     def print_model(self, ngram):
         character_count = dict({el:0 for el in string.ascii_lowercase})

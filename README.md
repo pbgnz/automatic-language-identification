@@ -4,6 +4,12 @@ A probabilistic language identification system that identifies the language of a
 ## Requirements
 1. Python 2.7.15
 2. Python 3.7.0
+3. Pip
+
+### Installation
+``` bash
+pip install -r requirements.txt
+```
 
 ## Detailed Usage
 
