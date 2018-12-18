@@ -1,2 +1,1 @@
-web: gunicorn app:app
-release: python server.py
+web: gunicorn server:app --preload

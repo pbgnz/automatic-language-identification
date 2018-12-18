@@ -76,15 +76,15 @@ class Unigram:
     def get_model(self):
         return self.model
     
-    def print_histogram(self):
-        plt.bar(range(len(self.model)), self.model.values(), align='center')
-        plt.xticks(range(len(self.model)), self.model.keys())
-        plt.title("frequency distribution of "+self.name)
-        plt.xlabel("letters")
-        plt.ylabel("frequency")
-        #plt.show()
-        plt.savefig('output/'+self.name+'.png')
-        plt.close()
+    # def print_histogram(self):
+    #     plt.bar(range(len(self.model)), self.model.values(), align='center')
+    #     plt.xticks(range(len(self.model)), self.model.keys())
+    #     plt.title("frequency distribution of "+self.name)
+    #     plt.xlabel("letters")
+    #     plt.ylabel("frequency")
+    #     #plt.show()
+    #     plt.savefig('output/'+self.name+'.png')
+    #     plt.close()
 
 
 class Bigram:
@@ -147,15 +147,15 @@ class Bigram:
     def get_model(self):
         return self.model
     
-    def print_histogram(self):
-        most_common = {}
-        for letter, count in self.count.most_common(40):
-            most_common[letter[0]+letter[1]] = count
-        plt.bar(range(len(most_common)), most_common.values(), align='center')
-        plt.xticks(range(len(most_common)), most_common.keys(), rotation='vertical')
-        plt.title("Most common letter pairs in "+self.name)
-        plt.xlabel("letter pairs")
-        plt.ylabel("count")
-        #plt.show()
-        plt.savefig('output/'+self.name+'.png')
-        plt.close()
+    # def print_histogram(self):
+    #     most_common = {}
+    #     for letter, count in self.count.most_common(40):
+    #         most_common[letter[0]+letter[1]] = count
+    #     plt.bar(range(len(most_common)), most_common.values(), align='center')
+    #     plt.xticks(range(len(most_common)), most_common.keys(), rotation='vertical')
+    #     plt.title("Most common letter pairs in "+self.name)
+    #     plt.xlabel("letter pairs")
+    #     plt.ylabel("count")
+    #     #plt.show()
+    #     plt.savefig('output/'+self.name+'.png')
+    #     plt.close()

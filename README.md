@@ -26,7 +26,7 @@ usage: ali [-v] (-c TRAIN-CORPUS)* [-t TEST-FILE]
     -t Specifies the test set for the model.
 ```
 
-##### Examples
+**Examples**
 
 generate an unigram and a bigram for each corpus and predict the training sentences using the later.
 ``` bash
@@ -44,4 +44,6 @@ python train.py
 Run the server
 ``` bash
 python server.py
+# or
+gunicorn server:app
 ```
