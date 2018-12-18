@@ -3,7 +3,7 @@
 import math
 import re
 import string
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from decimal import Decimal
 from corpus import Corpus
 from collections import Counter
