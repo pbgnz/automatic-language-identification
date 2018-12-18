@@ -6,14 +6,14 @@ A probabilistic language identification system that identifies the language of a
 2. Python 3.7.0
 3. Pip
 
-### Installation
+## Installation
 ``` bash
 pip install -r requirements.txt
 ```
 
 ## Detailed Usage
 
-### General
+#### CLI
 
 ``` bash
 ali is a probabilistic language identification system that identifies the langue of a sentence.
@@ -24,10 +24,22 @@ usage: ali [-v] (-c TRAIN-CORPUS)* [-t TEST-FILE]
     -t Specifies the test set for the model.
 ```
 
-### Examples
+##### Examples
 
 generate an unigram and a bigram for each corpus and predict the training sentences using the later.
 ``` bash
-python ali.py -c "corpora/en-moby-dick.txt" -c "corpora/es-don-quijote.txt" -c "corpora/fr-vingt-mille-lieues-sous-les-mers.txt" -t "corpora/first10TestSentences.txt"
+python ali.py -c "data/en.txt" -c "data/sp.txt" -c "data/fr.txt" -t "data/first10TestSentences.txt"
 ```
 outputs: see `output/output.md`
+
+#### Web App
+
+Train the models
+``` bash
+python train.py
+```
+
+Run the server
+``` bash
+python server.py
+```
