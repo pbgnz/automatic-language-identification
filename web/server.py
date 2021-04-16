@@ -6,7 +6,7 @@ from corpus import Corpus
 from ngram import NGram
 
 app = Flask(__name__)
-with open('output/web.pkl', 'rb') as f:
+with open('web/model/web.pkl', 'rb') as f:
     models = pickle.load(f)
 
 # index

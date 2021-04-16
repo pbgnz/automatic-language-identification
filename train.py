@@ -31,5 +31,5 @@ if __name__ == '__main__':
         ngrams.append((unigram, bigram))
 
     # pickle the ngrams
-    with open('output/web.pkl', 'wb') as f:
+    with open('web/model/web.pkl', 'wb') as f:
         pickle.dump(ngrams, f)
