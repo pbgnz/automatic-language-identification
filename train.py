@@ -2,7 +2,6 @@ import os
 import pickle
 import sys
 from corpus import Corpus
-from loguru import logger
 from ngram import NGram
 
 if __name__ == '__main__':
@@ -16,7 +15,6 @@ if __name__ == '__main__':
     ngrams = []
     corpora = ["data/en.txt", "data/sp.txt", "data/fr.txt"]
 
-    logger.debug("Reading data corpora")
     for corpus in corpora:
         _, tail = os.path.split(corpus)
         name = tail.split(".")[0]
@@ -33,7 +31,5 @@ if __name__ == '__main__':
         ngrams.append((unigram, bigram))
 
     # pickle the ngrams
-    logger.debug("Pickleing the models")
     with open('output/web.pkl', 'wb') as f:
         pickle.dump(ngrams, f)
-        logger.debug("Pickle model available at: output/web.pkl")

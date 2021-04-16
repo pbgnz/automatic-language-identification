@@ -1,5 +1,3 @@
-#!/bin/python
-
 import math
 import re
 import string
@@ -8,7 +6,6 @@ from decimal import Decimal
 from corpus import Corpus
 from collections import Counter
 from functools import reduce
-from loguru import logger
 
 
 class NGram:
@@ -48,15 +45,11 @@ class Unigram:
             count += 1
             tokens = []
             logTotal = 0
-            logger.debug(' '.join(line)+'\n\n')
-            logger.debug('UNIGRAM MODEL trained on: {}\n\n'.format(self.corpus.name))
             tokens.append(Corpus.tokenize(line))
             for line in tokens:
                 for c in line:
-                    logger.debug('UNIGRAM: {}\n'.format(c))
                     f = self.model[c]
                     logTotal += math.log10(f)
-                    logger.debug('MODEL PROBABILITY: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(c, f, logTotal))
 
     def print_model(self, ngram):
         outfile = open("output/{}.txt".format(self.name), "w", encoding="utf8")
@@ -112,17 +105,13 @@ class Bigram:
         for line in test:
             tokens = []
             logTotal = 0
-            logger.debug(' '.join(line)+'\n\n')
-            logger.debug('BIGRAM MODEL:  trained on: {}\n\n'.format(self.corpus.name))
             tokens.append(Corpus.tokenize(line))
             tmp = tokens[0]
             count += 1
             pairs = [a+b for a,b in zip(tmp,tmp[1:])]
             for p in pairs:
-                logger.debug('BIGRAM: {}{}\n'.format(p[0],p[1]))
                 f = self.model[(p[1],p[0])]
                 logTotal += math.log10(f)
-                logger.debug('MODEL PROBABILITY: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(p[1], p[0], f, logTotal))
 
     def print_model(self, ngram):
         character_count = dict({el:0 for el in string.ascii_lowercase})
