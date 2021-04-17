@@ -3,8 +3,8 @@
 import argparse
 import math
 import os
-from corpus import Corpus
-from ngram import NGram
+from project.lib.corpus import Corpus
+from project.lib.ngram import NGram
 
 
 def demo(verbose, corpora, test):
@@ -20,10 +20,10 @@ def demo(verbose, corpora, test):
             name = "FR"
         else:
             name = "SP"
-        unigram = NGram.create(degree=1,delta=0.5, name="unigram"+name)
+        unigram = NGram.create(degree=1, delta=0.5, name="unigram" + name)
         unigram.train(corpus[0])
         unigram.predict(test)
-        bigram = NGram.create(degree=2,delta=0.5, name="bigram"+name)
+        bigram = NGram.create(degree=2, delta=0.5, name="bigram" + name)
         bigram.train(corpus[0])
         bigram.predict(test)
         ngrams.append((unigram, bigram))
@@ -36,13 +36,13 @@ def demo(verbose, corpora, test):
         outfile = open("output/out{}.txt".format(count), "w+", encoding="utf8")
         count += 1
         tokens = []
-        outfile.write(' '.join(line)+'\n\n')
+        outfile.write(' '.join(line) + '\n\n')
         if verbose:
             print('\n' + ' '.join(line))
         outfile.write('UNIGRAM MODEL:\n')
         tokens.append(Corpus.tokenize(line))
         for line in tokens:
-            logTotal = {"english":0, "french":0, "spanish": 0}
+            logTotal = {"english": 0, "french": 0, "spanish": 0}
             for c in line:
                 outfile.write('\nUNIGRAM: {}\n'.format(c))
                 for gram in ngrams:
@@ -55,7 +55,9 @@ def demo(verbose, corpora, test):
                     else:
                         lang = "spanish"
                     logTotal[lang] += math.log10(f)
-                    outfile.write('{}: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(gram[0].name, c, f, logTotal[lang]))
+                    outfile.write(
+                        '{}: P({}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(gram[0].name, c, f,
+                                                                                              logTotal[lang]))
             if (logTotal["french"] > logTotal["english"]) and (logTotal["french"] > logTotal["spanish"]):
                 outfile.write('\nAccording to the unigram model, the sentence is in French\n')
                 if verbose:
@@ -73,11 +75,11 @@ def demo(verbose, corpora, test):
         logTotal["french"] = 0
         logTotal["spanish"] = 0
         tmp = tokens[0]
-        pairs = [a+b for a,b in zip(tmp,tmp[1:])]
+        pairs = [a + b for a, b in zip(tmp, tmp[1:])]
         for p in pairs:
-            outfile.write('\nBIGRAM: {}{}\n'.format(p[0],p[1]))
+            outfile.write('\nBIGRAM: {}{}\n'.format(p[0], p[1]))
             for gram in ngrams:
-                f = gram[1].get_model()[(p[0],p[1])]
+                f = gram[1].get_model()[(p[0], p[1])]
                 lang = ""
                 if "EN" in gram[0].name:
                     lang = "english"
@@ -86,7 +88,9 @@ def demo(verbose, corpora, test):
                 else:
                     lang = "spanish"
                 logTotal[lang] += math.log10(f)
-                outfile.write('{}: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(gram[1].name, p[1], p[0], f, logTotal[lang]))
+                outfile.write(
+                    '{}: P({}|{}) = {:.4e} ==> log prob of sequence so far: {:.4e}\n'.format(gram[1].name, p[1], p[0],
+                                                                                             f, logTotal[lang]))
         if (logTotal["french"] > logTotal["english"]) and (logTotal["french"] > logTotal["spanish"]):
             outfile.write('\nAccording to the bigram model, the sentence is in French\n')
             if verbose:
@@ -102,13 +106,12 @@ def demo(verbose, corpora, test):
     outfile.close()
 
 
-
-
-parser = argparse.ArgumentParser(description='ali is a probabilistic language identification system that identifies the langue of a sentence.')
+parser = argparse.ArgumentParser(
+    description='project is a probabilistic language identification system that identifies the langue of a sentence.')
 
 parser.add_argument("-v",
                     help="Prints debugging messages.",
-                    action='store_true',)
+                    action='store_true', )
 parser.add_argument("-c",
                     help="Specifies the training text(s) for the language.",
                     action='append', nargs='+',

@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ## Detailed Usage
 
-#### CLI
+### Cli
 
 ``` bash
 ali is a probabilistic language identification system that identifies the langue of a sentence.
@@ -34,7 +34,7 @@ python ali.py -c "data/en.txt" -c "data/sp.txt" -c "data/fr.txt" -t "data/first1
 ```
 outputs: see `output/output.md`
 
-#### Web App
+### Web
 
 Train the models
 ``` bash
