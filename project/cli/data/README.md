@@ -19,4 +19,4 @@ The corpora used for this project were:
 1- find a corpus for each language (see examples above)  
 2- copy paste the corpus into a text file and place it in this folder.   
 3- name the corpora according to their language (e.g: en.txt, sp.txt, fr.txt)   
-4- run project/web/train.py and a pickle model will be generated in project/web/model  
+4- run project/cli/ali.py 
