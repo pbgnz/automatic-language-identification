@@ -1,13 +1,15 @@
 import json
 import math
 import pickle
+
 from flask import Flask, render_template, request
-from corpus import Corpus
-from ngram import NGram
+
+from project.lib.ngram import NGram
+from project.lib.corpus import Corpus
 
 
 app = Flask(__name__)
-with open('web/model/web.pkl', 'rb') as f:
+with open('model/web.pkl', 'rb') as f:
     models = pickle.load(f)
 
 

@@ -3,8 +3,8 @@
 import argparse
 import math
 import os
-from corpus import Corpus
-from ngram import NGram
+from project.lib.corpus import Corpus
+from project.lib.ngram import NGram
 
 
 def demo(verbose, corpora, test):
@@ -104,7 +104,7 @@ def demo(verbose, corpora, test):
 
 
 
-parser = argparse.ArgumentParser(description='ali is a probabilistic language identification system that identifies the langue of a sentence.')
+parser = argparse.ArgumentParser(description='project is a probabilistic language identification system that identifies the langue of a sentence.')
 
 parser.add_argument("-v",
                     help="Prints debugging messages.",
