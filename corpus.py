@@ -3,11 +3,11 @@ import re
 import string
 import unidecode
 
-
 class Corpus:
     """
     Corpus is used for handling text files.
     """
+
     def __init__(self, file_path):
         file = open(file_path, encoding="utf8")
         self.corpus = file.readlines()
@@ -30,7 +30,7 @@ class Corpus:
         :param string corpus: String path of the corpus text file
         :return list: List of lists.
         """
-        # separate the corpus by words
+        # seperate the corpus by words
         words_split = []
         for line in corpus:
             unaccented = unidecode.unidecode(line)
@@ -65,7 +65,7 @@ class Corpus:
         # flatten the list
         flattened = [val for sublist in cleaned_text for val in sublist]
 
-        # Separate by character
+        # Seperate by character
         tokens = []
         for word in flattened:
             l = list(word)
