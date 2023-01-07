@@ -1,4 +1,4 @@
 flask==0.12.2
-gunicorn==19.4.3
+gunicorn==19.5.0
 loguru==0.2.3
 unidecode==1.0.23
