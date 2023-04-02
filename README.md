@@ -1,7 +1,7 @@
 # Automatic-Language-Identification
 A probabilistic language identification system that identifies the language of a sentence 
 
-[Visit demo website.](https://automatic-language-detection.herokuapp.com/)
+[Visit demo website](https://automatic-language-detection.herokuapp.com/)
 
 ## Requirements
 1. Python 2.7.15
